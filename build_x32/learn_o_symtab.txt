@@ -1,0 +1,20 @@
+
+Symbol table '.symtab' contains 17 entries:
+   Num:    Value  Size Type    Bind   Vis      Ndx Name
+     0: 00000000     0 NOTYPE  LOCAL  DEFAULT  UND 
+     1: 00000000     0 FILE    LOCAL  DEFAULT  ABS learn.c
+     2: 00000000     0 SECTION LOCAL  DEFAULT    2 .text
+     3: 00000000     0 SECTION LOCAL  DEFAULT    4 .data
+     4: 00000000     4 OBJECT  LOCAL  DEFAULT    4 local_int_var
+     5: 00000010    16 FUNC    LOCAL  DEFAULT    2 local_func
+     6: 00000000     0 SECTION LOCAL  DEFAULT    6 .text.__x86.get_[...]
+     7: 00000000     0 SECTION LOCAL  DEFAULT    7 .debug_info
+     8: 00000000     0 SECTION LOCAL  DEFAULT    9 .debug_abbrev
+     9: 00000000     0 SECTION LOCAL  DEFAULT   12 .debug_line
+    10: 00000000     0 SECTION LOCAL  DEFAULT   14 .debug_str
+    11: 00000000     0 SECTION LOCAL  DEFAULT   15 .debug_line_str
+    12: 00000000     4 OBJECT  GLOBAL DEFAULT    5 un_init_var
+    13: 00000000    16 FUNC    GLOBAL DEFAULT    2 my_function
+    14: 00000000     0 FUNC    GLOBAL HIDDEN     6 __x86.get_pc_thunk.ax
+    15: 00000000     0 NOTYPE  GLOBAL DEFAULT  UND _GLOBAL_OFFSET_TABLE_
+    16: 00000020    78 FUNC    GLOBAL DEFAULT    2 main
