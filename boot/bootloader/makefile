@@ -9,7 +9,8 @@ $(BUILD_DIR):
 	@mkdir -p $(BUILD_DIR)
 
 $(BUILD_DIR)/%.o:%.asm $(BUILD_DIR)
-	nasm -f elf $< -F dwarf -g -o $@
-	ld -m elf_i386 -T bootloader.lds $@ -o $@.elf
-	objcopy -O binary $(BUILD_DIR)/bootloader.o.elf $@
+#	nasm -f elf32 $< -F dwarf -g3 -o $@
+	nasm -f elf32 -g3 -F dwarf $< -o $@    
+	ld -melf_i386 -Ttext=0x7c00 $@ -o $@.elf
+	objcopy -O binary $@.elf $(BUILD_DIR)/bootloader.img
 #	nasm -f bin $< -o $@

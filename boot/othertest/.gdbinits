@@ -1,0 +1,8 @@
+# 1. 先连接 QEMU
+# target remote localhost:26000
+
+# # 3. 现在再强制设置为 8086 模式，这次 GDB 就不会反抗了
+# set architecture i8086
+
+# # 4. 打断点
+# b *0x7c00
