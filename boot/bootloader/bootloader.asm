@@ -110,7 +110,7 @@
 ; times 510 - ($ - $$) db 0
 ; dw 0xAA55
 
-
+;----------------------------------从hdd中读取kernel-------------------------------------
 ; NASM, 16-bit real mode
 ; 读取 count (in CX) 扇区，从 LBA (in DX:AX low/high or push dq) 开始到 ES:BX
 
@@ -124,36 +124,37 @@ global disk_error
 global kernel_entry
 
 start:
-    xor ax, ax
-    mov ds, ax
-    mov es, ax
+    ;| DL 值        | 含义           |
+    ;| ----------- | ------------ |
+    ;| 0x00 ~ 0x7F | 软盘（A:, B: 等） |
+    ;| **0x80**    | 第一块 HDD      |
+    ;| **0x81**    | 第二块 HDD      |
+    ;| 0x82        | 第三块 HDD      |
 
-    mov dl, 0x80      ; HDD
-
-    mov ax, 0x0050     ; ES = 0x50 → load kernel at 0x500:0
-    mov es, ax
-    xor bx, bx
+    ; mov dl, 0x80      ; 驱动器号设置,默认启动bootloader时会自动设置成第一个驱动号，所以不用手动给,除非需要从其他位置寻找kernel
 
     ; SI = offset dap_struct (located in CS=DS=0 segment)
+    ; 将dap_struct处的地址赋给si，这是DAP协议加载的要求。
     lea si, [dap_struct]
 
     mov ah, 0x42
     int 0x13
     jc disk_error
 kernel_entry:
-    jmp 0x0000:0x0600    ; jump to kernel entry (example)
+    ;jmp 0x0000:0x0600    ; jump to kernel entry (example)
+    jmp far [0x518]
 
 disk_error:
     cli
     hlt
 
 dap_struct:
-    db 16
-    db 0
-    dw 28          ; read 28 sectors
-    dw 0x0000      ; offset
-    dw 0x0050      ; segment ← 注意这是段，不是物理地址
-    dq 1           ; LBA=1
+    db 16          ; 表示这个结构的字节数，该数据占用1字节(db)
+    db 0           ; 保留项,1字节
+    dw 28          ; read 28 sectors  2字节dw
+    dw 0x0000      ; offset           2字节
+    dw 0x0050      ; segment ← 注意这是段，不是物理地址 2字节
+    dq 1           ; LBA=1  8字节 dq
 
 times 510-($-$$) db 0
-dw 0xAA55
+dw 0xAA55   ;MBR标记，表明这是一个二级启动器；一级启动器根据这个来判定该扇区(512字节)是否是一个二级启动引导器
