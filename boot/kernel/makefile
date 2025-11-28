@@ -19,5 +19,6 @@ $(BUILD_DIR)/%.o:%.c $(BUILD_DIR)
 	gcc $(CFLAGS) -c $< -o $@
 
 $(OS):$(OBJS)
-	ld -m elf_i386 -nmagic -T os.lds $(OBJS) -o $@ 
+	ld -m elf_i386 -nmagic -T os.lds $(OBJS) -o $@.elf
+	objcopy -O binary $@.elf $@
 
