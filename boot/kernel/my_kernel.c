@@ -1,3 +1,3 @@
-int main(int a,char* argv[]){
+int kernel_main(){
     return 0;
 }

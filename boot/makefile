@@ -2,7 +2,7 @@ BUILD_DIR=build
 BOOTLOADER_NAME=bootloader
 KERNEL_NAME=my_kernel
 BOOTLOADER:=$(BUILD_DIR)/$(BOOTLOADER_NAME)/bootloader.img
-KERNEL_O:=$(BUILD_DIR)/kernel/$(KERNEL_NAME).elf
+KERNEL_O:=$(BUILD_DIR)/kernel/$(KERNEL_NAME)
 DISK_IMG:=$(BUILD_DIR)/disk.img
 
 .PHONY:all bootloader kernel disk qemu

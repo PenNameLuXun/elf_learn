@@ -35,7 +35,8 @@ set architecture i8086
 directory ./bootloader
 directory ./kernel
 
-add-symbol-file ./build/kernel/my_kernel.elf 0x600
+add-symbol-file ./build/kernel/my_kernel.elf 0x500
+
 layout src
 layout regs
 
@@ -43,6 +44,12 @@ layout regs
 b *0x7c00
 
 c
+
+; b kernel_entry
+
+; c
+
+
 
 # 5. 定义显示 Hook
 # define hook-stop

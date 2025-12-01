@@ -18,7 +18,14 @@ $(BUILD_DIR):
 $(BUILD_DIR)/%.o:%.c $(BUILD_DIR)
 	gcc $(CFLAGS) -c $< -o $@
 
+
 $(OS):$(OBJS)
-	ld -m elf_i386 -nmagic -T os.lds $(OBJS) -o $@.elf
+#	nasm -f elf32 -g3 -F dwarf $< -o $@ 
+	nasm -f elf32 -g3 -F dwarf kernel_entry16.asm -o kernel_entry16.o
+	ld -m elf_i386 -nmagic -T os.lds kernel_entry16.o $(OBJS) -o $@.elf
 	objcopy -O binary $@.elf $@
+
+# --- 对齐到512字节 ---
+	dd if=/dev/zero bs=512 count=1 >> $@ 2>/dev/null
+	truncate -s %512 $@
 

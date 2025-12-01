@@ -1,4 +1,4 @@
-ENTRY(main);
+ENTRY(kernel_entry16);
 PHDRS
 {
 /*headers PT_PHDR FILEHDR PHDRS;*/

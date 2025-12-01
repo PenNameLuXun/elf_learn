@@ -141,8 +141,8 @@ start:
     int 0x13
     jc disk_error
 kernel_entry:
-    ;jmp 0x0000:0x0600    ; jump to kernel entry (example)
-    jmp far [0x518]
+    jmp 0x0000:0x0500    ; jump to kernel entry (example)
+    ;jmp far [0x518]
 
 disk_error:
     cli
