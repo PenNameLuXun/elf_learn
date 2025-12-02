@@ -21,11 +21,12 @@ $(BUILD_DIR)/%.o:%.c $(BUILD_DIR)
 
 $(OS):$(OBJS)
 #	nasm -f elf32 -g3 -F dwarf $< -o $@ 
-	nasm -f elf32 -g3 -F dwarf kernel_entry16.asm -o kernel_entry16.o
-	ld -m elf_i386 -nmagic -T os.lds kernel_entry16.o $(OBJS) -o $@.elf
+	nasm -f elf32 -g3 -F dwarf kernel_entry16.asm -o $(BUILD_DIR)/kernel_entry16.o
+	gcc $(CFLAGS) -c kernel_entry32.S -o $(BUILD_DIR)/kernel_entry32.o
+	ld -m elf_i386 -nmagic -T os.lds $(BUILD_DIR)/kernel_entry16.o $(BUILD_DIR)/kernel_entry32.o $(OBJS) -o $@.elf
 	objcopy -O binary $@.elf $@
 
 # --- 对齐到512字节 ---
-	dd if=/dev/zero bs=512 count=1 >> $@ 2>/dev/null
-	truncate -s %512 $@
+# 	dd if=/dev/zero bs=512 count=1 >> $@ 2>/dev/null
+# 	truncate -s %512 $@
 

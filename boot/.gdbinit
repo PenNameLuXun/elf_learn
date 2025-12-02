@@ -23,12 +23,7 @@
 # 1. 先连接 QEMU
 target remote localhost:26000
 
-# 2. 【关键一步】告诉 GDB 加载一个空的 XML 描述文件
-# 这会迫使 GDB 丢弃 QEMU 发过来的 "我是32位CPU" 的信息
-# 必须写绝对路径 /dev/null，不能写 none
-# set tdesc filename /dev/null
-
-# 3. 现在再强制设置为 8086 模式，这次 GDB 就不会反抗了
+# 2. 现在再强制设置为 8086 模式
 set architecture i8086
 
 
@@ -41,13 +36,16 @@ layout src
 layout regs
 
 # 4. 打断点
-b *0x7c00
+# b *0x7c00
 
-c
+# c
 
-; b kernel_entry
+# b kernel_entry
 
-; c
+# c
+
+b jmp2protected
+
 
 
 

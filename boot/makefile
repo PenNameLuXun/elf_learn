@@ -19,9 +19,10 @@ disk:bootloader kernel
 # 	dd conv=notrunc if=$(BOOTLOADER) of=$(DISK_IMG) bs=512
 # #	dd if=$(KERNEL_O) of=$(DISK_IMG) bs=512 count=1 seek=1
 # 	dd conv=notrunc if=$(KERNEL_O) of=$(DISK_IMG) bs=512 count=$$(($(shell stat --printf="%s" $(KERNEL_O))/512)) seek=1
-	dd if=/dev/zero of=$(DISK_IMG) bs=1M count=10
+#	dd if=/dev/zero of=$(DISK_IMG) bs=1M count=10
+	dd if=/dev/zero of=$(DISK_IMG) bs=1M count=1
 	dd conv=notrunc if=$(BOOTLOADER) of=$(DISK_IMG) bs=512 count=1
-	dd conv=notrunc if=$(KERNEL_O) of=$(DISK_IMG) bs=512 count=$$(($(shell stat --printf="%s" $(KERNEL_O))/512)) seek=1
+	dd conv=notrunc if=$(KERNEL_O) of=$(DISK_IMG) bs=512 count=$$((($(shell stat --printf="%s" $(KERNEL_O))+512)/512)) seek=1
 
 
 #-machine q35
