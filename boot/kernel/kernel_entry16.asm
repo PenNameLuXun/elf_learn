@@ -88,3 +88,6 @@ gdt_descriptor:
 ; 设置保护模式下要用到的段地址，代码段和数据段
 CODE_SEG equ gdt_code - gdt_start
 DATA_SEG equ gdt_data - gdt_start
+
+var1 dd 1,2,3
+MYTEXT1 db 'this is hello friends',0
