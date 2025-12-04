@@ -26,8 +26,9 @@ void print_string(const char* str) {
         str++;
     }
 }
-int kernel_main(){
+
+__attribute__((section(".start"), used))
+void kernel_main(){
     print_string("Hello from 32-bit kernel!\n");
     print_string("This is VGA text output.\n");
-    return 0;
 }

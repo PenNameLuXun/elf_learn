@@ -29,8 +29,10 @@ set architecture i8086
 
 directory ./bootloader
 directory ./kernel
+directory ./kernel/kernel
 
-add-symbol-file ./build/kernel/my_kernel.elf 0x500
+add-symbol-file ./build/kernel/bootloader2.elf 0x500
+add-symbol-file ./build/kernel/kernel/my_kernel.elf 0x100000
 
 layout src
 layout regs
